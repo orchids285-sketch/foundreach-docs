@@ -53,7 +53,6 @@ export type ImportStatusResponse = {
   importedGroups?: number;
   totalRestrictedPages?: number;
   importedRestrictedPages?: number;
-  warnings?: string[];
   createdAt?: string;
   updatedAt?: string;
   error?: string;
@@ -81,7 +80,6 @@ export type ConfluenceImportHistoryItem = {
   importedRestrictedPages: number;
   cancelled: boolean;
   spaceKeys: string[];
-  warnings: string[];
   createdAt: string;
   updatedAt: string;
   creatorId: string | null;

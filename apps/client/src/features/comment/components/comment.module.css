@@ -53,6 +53,10 @@
         margin-block-end: 0;
     }
 
+    .ProseMirror :global(.tableWrapper) table {
+        min-width: 100% !important;
+    }
+
     .actions {
 
     }

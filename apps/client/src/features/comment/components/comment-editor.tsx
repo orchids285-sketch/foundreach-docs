@@ -3,7 +3,18 @@ import { Placeholder } from "@tiptap/extension-placeholder";
 import { StarterKit } from "@tiptap/starter-kit";
 import { TextStyle } from "@tiptap/extension-text-style";
 import { Color } from "@tiptap/extension-color";
-import { Mention, LinkExtension } from "@docmost/editor-ext";
+import {
+  Mention,
+  LinkExtension,
+  CustomTable,
+  TableRow,
+  TableCell,
+  TableHeader,
+  TableView,
+  TiptapImage,
+  SharedStorage,
+} from "@docmost/editor-ext";
+import ImageView from "@/features/editor/components/image/image-view";
 import classes from "./comment.module.css";
 import { useFocusWithin } from "@mantine/hooks";
 import clsx from "clsx";
@@ -69,6 +80,18 @@ const CommentEditor = forwardRef(
             this.editor.isInitialized = true;
             return ReactNodeViewRenderer(MentionView);
           },
+        }),
+        SharedStorage,
+        CustomTable.configure({
+          resizable: false,
+          View: TableView,
+        }),
+        TableRow,
+        TableCell,
+        TableHeader,
+        TiptapImage.configure({
+          view: ImageView,
+          allowBase64: false,
         }),
       ],
       editorProps: {

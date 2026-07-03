@@ -134,7 +134,7 @@ export default function ConfluenceImportModal({ opened, onClose }: Props) {
   };
 
   const handleNextFromCredentials = async () => {
-    if (form.validate().hasErrors) return;
+    if ((await form.validate()).hasErrors) return;
     setLoading(true);
     setError(null);
     try {
