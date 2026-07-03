@@ -6,13 +6,9 @@ import { Color } from "@tiptap/extension-color";
 import {
   Mention,
   LinkExtension,
-  CustomTable,
-  TableRow,
-  TableCell,
-  TableHeader,
-  TableView,
   TiptapImage,
   SharedStorage,
+  Attachment,
 } from "@docmost/editor-ext";
 import ImageView from "@/features/editor/components/image/image-view";
 import classes from "./comment.module.css";
@@ -24,6 +20,8 @@ import EmojiCommand from "@/features/editor/extensions/emoji-command";
 import mentionRenderItems from "@/features/editor/components/mention/mention-suggestion";
 import MentionView from "@/features/editor/components/mention/mention-view";
 import { platformModifierKey } from "@/lib";
+import { TableKit } from "@tiptap/extension-table";
+import AttachmentView from "@/features/editor/components/attachment/attachment-view.tsx";
 
 interface CommentEditorProps {
   defaultContent?: any;
@@ -81,14 +79,11 @@ const CommentEditor = forwardRef(
             return ReactNodeViewRenderer(MentionView);
           },
         }),
-        SharedStorage,
-        CustomTable.configure({
-          resizable: false,
-          View: TableView,
+        TableKit,
+        Attachment.configure({
+          view: AttachmentView,
         }),
-        TableRow,
-        TableCell,
-        TableHeader,
+        SharedStorage,
         TiptapImage.configure({
           view: ImageView,
           allowBase64: false,
@@ -139,7 +134,12 @@ const CommentEditor = forwardRef(
     // websocket on another browser). Skip for editable editors to avoid
     // resetting the cursor position on every keystroke.
     useEffect(() => {
-      if (!editable && commentEditor && !commentEditor.isDestroyed && defaultContent) {
+      if (
+        !editable &&
+        commentEditor &&
+        !commentEditor.isDestroyed &&
+        defaultContent
+      ) {
         commentEditor.commands.setContent(defaultContent);
       }
     }, [defaultContent, editable, commentEditor]);
